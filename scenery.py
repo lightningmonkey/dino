@@ -19,6 +19,7 @@ class GenericScenery(GenericTimedSuface):
         if(self.timer_fire()):
             self.current_food = self.max_food
             self.redraw()
+            self.set_change()
             return True
         return False
                 
@@ -61,6 +62,7 @@ class Tree(GenericScenery):
         color = self.food_color if 0 != self.current_food else self.no_food_color
         for point in self.fruit_list:
             pygame.draw.rect(self.surface, color, (point[0], point[1], self.fruit_size, self.fruit_size))
+        self.set_change(False)
             
 class SceneryTests(unittest.TestCase):
     """ unit tests for animals """

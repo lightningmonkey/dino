@@ -41,10 +41,17 @@ class GenericSurface(object):
         self.surface = pygame.Surface((self.surface_width, self.surface_height))
         self.surface = self.surface.convert_alpha()
         self.surface.fill(self.surface_color)
+        self.changed = True
     
     def get_surface(self):
         """Return this objects surface so it can be drawn"""
         return self.surface
+    
+    def should_redraw_surface(self):
+        return self.changed
+    
+    def set_change(self, val = True):
+        self.changed = val
     
 class GenericTimedSuface(GenericSurface):
     """ A basic surface that also has a timer functionality """

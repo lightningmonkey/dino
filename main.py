@@ -19,7 +19,6 @@ class MainLoop(object):
         self.background = Background()
         self.loop()
         
-        
     def change_movement(self, event):
         """ When a key is pushed down or let up, change the down_keys list """
         if event.type == KEYDOWN:
@@ -44,8 +43,8 @@ class MainLoop(object):
                     if( food_qty > 0):
                         print("NOM  NOM")
                         self.player.eat_food(food_qty)
-                        text = Eating(current_object.x, current_object.y)
-                        self.background.add_text(text)
+                        text = Eating(current_object.x, current_object.y + current_object.surface_height/2, current_object )
+                        self.background.add_object(text)
                         self.change = True
                 return False
         return True
@@ -98,6 +97,7 @@ class MainLoop(object):
                     self.change = self.change or current_object.food_respawn()
                 elif(isinstance(current_object, GenericText)):
                         if(current_object.timer_fire()):
+                            current_object.get_parent().set_change()
                             self.background.all_objects.remove(current_object)
                             self.change = True
                     

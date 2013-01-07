@@ -62,7 +62,9 @@ class Background(GenericSurface):
     def display_object(self):
         """ Loop through all objects and put them on the surface """
         for current_object in self.all_objects:
+            if(current_object.should_redraw_surface()):
                 self.playable_surface.blit(current_object.get_surface(), (current_object.x, current_object.y))
+                current_object.set_change(False)
     
     def get_objects(self):
         """ Return all the objects on the board """
@@ -72,10 +74,11 @@ class Background(GenericSurface):
         """ Return just the playable_surface, instead of the entire surface """
         return self.playable_surface
     
-    def add_text(self, text):
-        self.all_objects.append(text)
+    def add_object(self, obj):
+        """ Add a surface object to the list """
+        assert(isinstance(obj, GenericSurface)) 
+        self.all_objects.append(obj)
     
     def redraw(self):
-        self.create_background()
         self.display_object()
         self.surface.blit(self.playable_surface, (OFFSET_X, OFFSET_Y))
