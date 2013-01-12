@@ -40,7 +40,7 @@ class Background(GenericSurface):
                 draw = not draw
             draw = not draw
         
-    def add_objects(self, tree_number=15):
+    def add_objects(self, tree_number=5):
         """Add all the objects onto the board, this includes scenery and enemies """
         random.seed()
         for i in range(tree_number):

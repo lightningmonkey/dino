@@ -2,8 +2,8 @@ from import_all import *
 
 MAX_TREE_FOOD = 100
 TREE_RESPAWN_TIME = 10000 #Time in milliseconds
-TREE_SIZE_X = 100
-TREE_SIZE_Y = 100
+TREE_SIZE_X = 300
+TREE_SIZE_Y = 300
 TREE_FRUIT_NUMBER = 10
 assert(TREE_SIZE_X == TREE_SIZE_Y) #assume tree's are square for now
 
@@ -31,6 +31,7 @@ class GenericScenery(GenericTimedSuface):
             self.current_food = 0
             self.start_timer()
             self.redraw()
+            self.set_change()
         return current
 
     def redraw(self):
