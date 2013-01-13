@@ -9,7 +9,7 @@ from map import Map, MapTests
 
 class MainLoop(object):
     """ The main event loop for the game"""
-    def __init__(self):
+    def __init__(self, file_name):
         pygame.init()
         self.display_surf = pygame.display.set_mode((WINDOW_SIZE_X, WINDOW_SIZE_Y), 0 , 32)
         pygame.display.set_caption("Dinosaurs Evolved")
@@ -17,7 +17,7 @@ class MainLoop(object):
         self.change = False #Used to see if the board needs to be redrawn
         self.down_keys = Set(); #The keys that the user is currently holding down
         self.player = Player( PLAYER_DIMENSION_X, PLAYER_DIMENSION_Y, TRANSPARENT, RED )
-        self.background = Background('map_definitions/First.xml')
+        self.background = Background(file_name)
         self.loop()
         
     def change_movement(self, event):
@@ -129,5 +129,5 @@ def run_tests():
     
 if __name__=='__main__':
     #run_tests()
-    main = MainLoop()
+    main = MainLoop('map_definitions/First.xml')
     
