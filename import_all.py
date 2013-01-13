@@ -7,21 +7,17 @@ RED = pygame.Color(255, 0, 0)
 BLUE = pygame.Color(0, 0, 255)
 BLACK = pygame.Color(0, 0, 0)
 WHITE = pygame.Color(255, 255, 255)
-ORANGE = pygame.Color(255, 165, 0)
-SEA_GREEN = pygame.Color(46, 139, 87)
-LIME_GREEN  = pygame.Color(50, 205, 50)
 TRANSPARENT = pygame.Color(0, 0, 0, 0)
+
 FPS = 60
 WINDOW_SIZE_X = 800
 assert(WINDOW_SIZE_X % 2 == 0)
 WINDOW_SIZE_Y = 600
 assert(WINDOW_SIZE_X % 2 == 0)
-PLAYABLE_DIMENSION_X = 1600
-PLAYABLE_DIMENSION_Y = 1200
 OFFSET_X = WINDOW_SIZE_X / 2
 OFFSET_Y = WINDOW_SIZE_Y / 2
-BACKGROUND_DIMENSION_X = OFFSET_X*2 + PLAYABLE_DIMENSION_X
-BACKGROUND_DIMENSION_Y = OFFSET_Y*2 + PLAYABLE_DIMENSION_Y
+
+
 PLAYER_DIMENSION_X = 40
 PLAYER_DIMENSION_Y = 40
 STEP_SIZE = 3
@@ -53,10 +49,10 @@ class GenericSurface(object):
     def set_change(self, val = True):
         self.changed = val
     
-class GenericTimedSuface(GenericSurface):
+class GenericTimedSurface(GenericSurface):
     """ A basic surface that also has a timer functionality """
     def __init__(self, timer_interval, width, height, color, x=0, y=0):
-        super(GenericTimedSuface, self).__init__(width, height, color, x, y)
+        super(GenericTimedSurface, self).__init__(width, height, color, x, y)
         self.timer_interval = timer_interval
         self.last_timer_fire = 0
     
@@ -76,7 +72,7 @@ class TimedTest(unittest.TestCase):
     """ unit tests for timed surfaces """
     def setUp(self):
         pygame.init()
-        self.timer = GenericTimedSuface(100, 0, 0, RED)
+        self.timer = GenericTimedSurface(100, 0, 0, RED)
     
     def tearDown(self):
         self.timer = None

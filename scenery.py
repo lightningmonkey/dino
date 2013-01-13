@@ -1,13 +1,10 @@
 from import_all import *
 
-MAX_TREE_FOOD = 100
-TREE_RESPAWN_TIME = 10000 #Time in milliseconds
 TREE_SIZE_X = 300
 TREE_SIZE_Y = 300
-TREE_FRUIT_NUMBER = 10
 assert(TREE_SIZE_X == TREE_SIZE_Y) #assume tree's are square for now
 
-class GenericScenery(GenericTimedSuface):
+class GenericScenery(GenericTimedSurface):
     """ Contains the basic mechanisms for scenery, mainly food """
     def __init__(self, max_food, respawn_time, width, height, base_color, x=0, y=0):
         super(GenericScenery, self).__init__(respawn_time, width, height, base_color, x, y)
@@ -39,13 +36,12 @@ class GenericScenery(GenericTimedSuface):
     
 class Tree(GenericScenery):
     """It's a tree! This will be scattered around the map for food and protection"""
-    def __init__(self, base_color, food_color, no_food_color, x, y):
-        assert( TREE_SIZE_X == TREE_SIZE_Y)
-        super(Tree, self).__init__(MAX_TREE_FOOD, TREE_RESPAWN_TIME, TREE_SIZE_X, TREE_SIZE_Y, base_color, x, y)
+    def __init__(self, base_color, food_color, no_food_color, x, y, max_food, respawn, fruit_number, dimension):
+        super(Tree, self).__init__(max_food, respawn, dimension, dimension, base_color, x, y)
         self.food_color = food_color
         self.no_food_color = no_food_color
-        self.fruit_size = TREE_SIZE_X/10
-        self.fruit_number = TREE_FRUIT_NUMBER
+        self.fruit_size = dimension/10
+        self.fruit_number = fruit_number
         self.fruit_list = []
         self.draw_tree()
     
@@ -76,18 +72,20 @@ class SceneryTests(unittest.TestCase):
         
     def testGenericGetFood(self):
         food_qty = self.scenery.get_food()
-        self.assertEqual(food_qty, MAX_TREE_FOOD, "Wrong food qty")
+        self.assertEqual(food_qty, 100, "Wrong food qty")
         self.assertEqual(self.scenery.current_food, 0, "There should be no food left")
         pygame.time.delay(1500)
         self.scenery.food_respawn()
         self.assertEqual(self.scenery.current_food, 100, "There should be no food left")
   
     def testTreeGetFood(self):
-        self.scenery = Tree(RED, RED, RED, 0, 0)
+        #tree = Tree(base_color, food_color, no_food_color, x, y, max_food, food_respawn, fruit_number, dimension)
+                    
+        self.scenery = Tree(RED, RED, RED, 0, 0, 100, 100, 10, 0)
         food_qty = self.scenery.get_food()
         self.assertEqual(food_qty, 100, "Wrong food qty")
         self.assertEqual(self.scenery.current_food, 0, "There should be no food left")
-        pygame.time.delay(TREE_RESPAWN_TIME + 100)
+        pygame.time.delay(200)
         self.scenery.food_respawn()
         self.assertEqual(self.scenery.current_food, 100, "There should be all the food")
         

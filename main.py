@@ -5,6 +5,7 @@ from background import Background
 from scenery import GenericScenery, SceneryTests
 from animals import AnimalsTests, GenericAnimal
 from text import Eating, GenericText
+from map import Map, MapTests
 
 class MainLoop(object):
     """ The main event loop for the game"""
@@ -16,7 +17,7 @@ class MainLoop(object):
         self.change = False #Used to see if the board needs to be redrawn
         self.down_keys = Set(); #The keys that the user is currently holding down
         self.player = Player( PLAYER_DIMENSION_X, PLAYER_DIMENSION_Y, TRANSPARENT, RED )
-        self.background = Background()
+        self.background = Background('map_definitions/First.xml')
         self.loop()
         
     def change_movement(self, event):
@@ -28,7 +29,7 @@ class MainLoop(object):
     
     def bounds_check(self, x, y):
         """ Make sure the player can no leave the playable surface """
-        background_rect = pygame.Rect(x+OFFSET_X, y+OFFSET_Y, PLAYABLE_DIMENSION_X, PLAYABLE_DIMENSION_Y)
+        background_rect = pygame.Rect(x+OFFSET_X, y+OFFSET_Y, self.background.map.PLAYABLE_DIMENSION_X, self.background.map.PLAYABLE_DIMENSION_Y)
         player_rect = pygame.Rect(WINDOW_SIZE_X/2, WINDOW_SIZE_Y/2, PLAYER_DIMENSION_X, PLAYER_DIMENSION_Y)
         return background_rect.contains(player_rect)
             
@@ -43,7 +44,7 @@ class MainLoop(object):
                     if( food_qty > 0):
                         print("NOM  NOM")
                         self.player.eat_food(food_qty)
-                        text = Eating(current_object.x, current_object.y + current_object.surface_height/2, current_object )
+                        text = Eating(current_object)
                         self.background.add_object(text)
                         self.change = True
                 return False
@@ -92,7 +93,7 @@ class MainLoop(object):
         
     def update_objects(self):
         for current_object in self.background.all_objects:
-            if(isinstance(current_object, GenericTimedSuface)):
+            if(isinstance(current_object, GenericTimedSurface)):
                 if(isinstance(current_object, GenericScenery)):
                     self.change = self.change or current_object.food_respawn()
                 elif(isinstance(current_object, GenericText)):
@@ -129,3 +130,4 @@ def run_tests():
 if __name__=='__main__':
     #run_tests()
     main = MainLoop()
+    
