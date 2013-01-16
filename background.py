@@ -13,6 +13,7 @@ class Background(GenericSurface):
     
     """
     def __init__(self, file_name):
+        logging.info('loading background with filename {0}'.format(file_name))
         self.map = Map(file_name)
         super(Background, self).__init__(self.map.BACKGROUND_DIMENSION_X, self.map.BACKGROUND_DIMENSION_Y, BLUE)
         self.create_background()
@@ -44,7 +45,9 @@ class Background(GenericSurface):
         
     def add_objects(self, tree_number=5):
         """Add all the objects onto the board, this includes scenery and enemies """
+        logging.info('Background adding objects')
         for obj in self.map.objects:
+            logging.info('Adding object||{0}'.format(str(obj)))
             self.all_objects.append(obj)
     
         

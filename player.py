@@ -12,6 +12,15 @@ class Player(GenericAnimal):
         assert( width == height ) #assume the player is a square for now
         self.dim = width
         self.create_player()
+        logging.info('Created player||{0}'.format(self.__repr__()))
+        
+    def __repr__(self):
+        s = super(Player, self).__repr__()
+        return 'Player(player_color=%r)||%s' % (self.player_color, s)
+        
+    def __str__(self):
+        s = super(Player, self).__str__()
+        return 'Player-player_color:{0}||{1}'.format(self.player_color, s)
         
     def create_player(self):
         """ Draw the player """

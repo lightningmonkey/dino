@@ -11,6 +11,14 @@ class GenericScenery(GenericTimedSurface):
         self.max_food = max_food
         self.current_food = max_food
         
+    def __repr__(self):
+        s = super(GenericScenery, self).__repr__()
+        return 'GenericScenery(max_food=%r)||%s' % (self.max_food, s)
+        
+    def __str__(self):
+        s = super(GenericScenery, self).__str__()
+        return 'GenericScenery-max_food:{0}||{1}'.format(self.max_food, s)
+        
     def food_respawn(self):
         """ If enough time has passed, respawn the food """
         if(self.timer_fire()):
@@ -44,6 +52,14 @@ class Tree(GenericScenery):
         self.fruit_number = fruit_number
         self.fruit_list = []
         self.draw_tree()
+    
+    def __repr__(self):
+        s = super(Tree, self).__repr__()
+        return 'Tree(food_color=%r, no_food_color=%r, fruit_number=%r, dimension=%r)||%s' % (self.food_color, self.no_food_color, self.fruit_number, self.fruit_size*10, s)
+        
+    def __str__(self):
+        s = super(Tree, self).__str__()
+        return 'Tree-food_color:{0}, no_food_color:{1}, fruit_number:{2}, dimension:{3}||{4}'.format(self.food_color, self.no_food_color, self.fruit_number, self.fruit_size*10, s)
     
     def draw_tree(self):
         """The tree is a square, because it makes things easier then a circle"""

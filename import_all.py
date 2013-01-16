@@ -2,6 +2,13 @@ import pygame, sys
 from pygame.locals import *
 import random
 import unittest
+import logging
+import datetime
+
+#initiate the log file
+file_name = 'logs//' + datetime.datetime.now().strftime('%Y-%m-%d_%H_%M_%S') + '.log'
+logging.basicConfig(format='%(levelname)s:%(filename)s:%(lineno)d:%(message)s',filename=file_name, level=logging.DEBUG)
+logging.info('Program launched')
 
 RED = pygame.Color(255, 0, 0)
 BLUE = pygame.Color(0, 0, 255)
@@ -39,6 +46,12 @@ class GenericSurface(object):
         self.surface.fill(self.surface_color)
         self.changed = True
     
+    def __repr__(self):
+        return 'GenericSurface(width=%r, height=%r, color=%r, x=%r, y=%r)' % (self.surface_width, self.surface_height, self.surface_color, self.x, self.y)
+    
+    def __str__(self):
+        return 'GenericSurface-w:{0} h:{1} base_color:{2} x:{3} y:{4}'.format(self.surface_width, self.surface_height, self.surface_color, self.x, self.y)
+    
     def get_surface(self):
         """Return this objects surface so it can be drawn"""
         return self.surface
@@ -55,6 +68,14 @@ class GenericTimedSurface(GenericSurface):
         super(GenericTimedSurface, self).__init__(width, height, color, x, y)
         self.timer_interval = timer_interval
         self.last_timer_fire = 0
+    
+    def __repr__(self):
+        s = super(GenericTimedSurface, self).__repr__()
+        return 'GenericTimedSurface(timer_interval=%r)||%s' % (self.timer_interval, s)
+    
+    def __str__(self):
+        s = super(GenericTimedSurface, self).__str__()
+        return 'GenericTimedSurface-timer_interval:{0}||{1}'.format(self.timer_interval, s)
     
     def start_timer(self):
         """ Start up the timer """

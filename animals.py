@@ -9,6 +9,14 @@ class GenericAnimal(GenericSurface):
         self.current_mass = 0
         self.size_level = current_size
         
+    def __repr__(self):
+        s = super(GenericAnimal, self).__repr__()
+        return 'GenericAnimal(max_health=%r, size_level=%r)||%s' % (self.max_health, self.size_level, s)
+        
+    def __str__(self):
+        s = super(GenericAnimal, self).__str__()
+        return 'GenericAnimal-max_health:{0} size_levle:{1}||{2}'.format(self.max_health, self.size_level, s)
+    
     def eat_food(self, food_qty):
         """ Food will first regen health, and then if any is left over add it to mass """
         if(food_qty > 0):

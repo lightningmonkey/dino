@@ -107,6 +107,7 @@ class MainLoop(object):
         """ The main loop that drives the game"""
         assert(0 == self.player.x) #if the player does not start at (0,0) the later positions are all screwed up
         assert(0 == self.player.y)
+        logging.info('Starting main loop')
         fps_clock = pygame.time.Clock()
         while True:
             self.display_surf.fill(WHITE)
@@ -122,6 +123,7 @@ class MainLoop(object):
             fps_clock.tick(FPS)
         
 def run_tests():
+    logging.info('Run tests')
     pygame.init()
     display_surf = pygame.display.set_mode((WINDOW_SIZE_X, WINDOW_SIZE_Y), 0 , 32)
     pygame.display.set_caption("Dinosaurs Evolved")
