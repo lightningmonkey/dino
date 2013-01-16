@@ -1,0 +1,8 @@
+INFO:import_all.py:11:Program launched
+INFO:player.py:15:Created player||Player(player_color=(255, 0, 0, 255))||GenericAnimal(max_health=300, size_level=1)||GenericSurface(width=40, height=40, color=(0, 0, 0, 0), x=0, y=0)
+INFO:background.py:16:loading background with filename map_definitions/First.xml
+INFO:background.py:48:Background adding objects
+INFO:background.py:50:Adding object||Tree-food_color:(255, 0, 0, 255), no_food_color:(50, 205, 50, 255), fruit_number:10, dimension:300||GenericScenery-max_food:100||GenericTimedSurface-timer_interval:10000||GenericSurface-w:300 h:300 base_color:(46, 139, 87, 255) x:200 y:250
+INFO:background.py:50:Adding object||Tree-food_color:(255, 0, 0, 255), no_food_color:(50, 205, 50, 255), fruit_number:10, dimension:300||GenericScenery-max_food:100||GenericTimedSurface-timer_interval:10000||GenericSurface-w:300 h:300 base_color:(46, 139, 87, 255) x:600 y:450
+INFO:background.py:50:Adding object||Tree-food_color:(0, 155, 155, 255), no_food_color:(100, 0, 50, 255), fruit_number:10, dimension:300||GenericScenery-max_food:100||GenericTimedSurface-timer_interval:10000||GenericSurface-w:300 h:300 base_color:(46, 139, 87, 255) x:500 y:1000
+INFO:main.py:110:Starting main loop
