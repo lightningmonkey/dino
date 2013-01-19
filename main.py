@@ -16,7 +16,7 @@ class MainLoop(object):
         
         self.change = False #Used to see if the board needs to be redrawn
         self.down_keys = Set(); #The keys that the user is currently holding down
-        self.player = Player( PLAYER_DIMENSION_X, PLAYER_DIMENSION_Y, TRANSPARENT, RED )
+        self.player = Player()
         self.background = Background(file_name)
         self.loop()
         
@@ -48,6 +48,17 @@ class MainLoop(object):
                         logging.info("Added text: {0}".format(str(text)))
                         self.background.add_object(text)
                         self.change = True
+                if(isinstance(current_object, GenericAnimal)):
+                    player_attack = self.player.attack()
+                    enemy_attack = current_object.attack()
+                    player_dead = self.player.take_damage(enemy_attack)
+                    enemy_dead = current_object.take_damage(player_attack)
+                    print('Player {0} {1} enemy {2} {3}').format(self.player.get_health(), player_dead, current_object.get_health(), enemy_dead)
+                    logging.info('Attack! Player {0} alive {1} enemy {2} alive {3}'.format(self.player.get_health(), player_dead, current_object.get_health(), enemy_dead))
+                    if(not enemy_dead):
+                        logging.info('Enemy killed: {0}'.format(str(current_object)))
+                        self.background.all_objects.remove(current_object)
+                        self.background.draw_all()
                 return False
         return True
     

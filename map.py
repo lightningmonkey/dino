@@ -1,5 +1,6 @@
 from import_all import *
 from scenery import *
+from enemy import *
 from xml.etree import ElementTree as etree
 
 MAX_TREE_FOOD_DEFAULT = 100
@@ -14,6 +15,43 @@ class Map(object):
         self.objects = []
         self.parse()
          
+    def add_tree(self, child):
+        cur = child.find('MaxFood')
+        max_food = int(cur.text) if cur.text != None else MAX_TREE_FOOD_DEFAULT
+        cur = child.find('FoodRespawn')
+        food_respawn = int(cur.text) if cur.text != None else TREE_RESPAWN_TIME_DEFAULT
+        cur = child.find('FruitNumber')
+        fruit_number = int(cur.text) if cur.text != None else TREE_FRUIT_NUMBER_DEFAULT
+        dimension = int(child.find('Dimension').text)
+        x = int(child.find('X').text)
+        y = int(child.find('Y').text)
+        cur = child.find('BaseColor')
+        base_color_r = int(cur.find('Red').text)
+        base_color_g = int(cur.find('Green').text)
+        base_color_b = int(cur.find('Blue').text)
+        base_color = pygame.Color(base_color_r, base_color_g, base_color_b)
+        cur = child.find('FoodColor')
+        food_color_r = int(cur.find('Red').text)
+        food_color_g = int(cur.find('Green').text)
+        food_color_b = int(cur.find('Blue').text)
+        food_color = pygame.Color(food_color_r, food_color_g, food_color_b)
+        cur = child.find('NoFoodColor')
+        no_food_color_r = int(cur.find('Red').text)
+        no_food_color_g = int(cur.find('Green').text)
+        no_food_color_b = int(cur.find('Blue').text)
+        no_food_color = pygame.Color(no_food_color_r, no_food_color_g, no_food_color_b)
+        tree = Tree(base_color, food_color, no_food_color, x, y, max_food, food_respawn, fruit_number, dimension)
+        self.objects.append(tree)
+    
+    def add_enemy(self, child):
+        x = int(child.find('X').text)
+        y = int(child.find('Y').text)
+        name = child.find('Name').text
+        if('Compsognathus' != name):
+            assert(False)
+        comp = Compsognathus(x,y)
+        self.objects.append(comp)
+        
     def parse(self):
         cur = self.root.find('Width')
         self.PLAYABLE_DIMENSION_X = int(cur.text)
@@ -22,36 +60,13 @@ class Map(object):
         self.BACKGROUND_DIMENSION_X = OFFSET_X*2 + self.PLAYABLE_DIMENSION_X
         self.BACKGROUND_DIMENSION_Y = OFFSET_Y*2 + self.PLAYABLE_DIMENSION_Y
         objects = self.root.find('Objects')
-        for parent in objects.getiterator():
+        for parent in objects.iter():
             for child in parent:
                 if child.tag == 'Tree':
-                    cur = child.find('MaxFood')
-                    max_food = int(cur.text) if cur.text != None else MAX_TREE_FOOD_DEFAULT
-                    cur = child.find('FoodRespawn')
-                    food_respawn = int(cur.text) if cur.text != None else TREE_RESPAWN_TIME_DEFAULT
-                    cur = child.find('FruitNumber')
-                    fruit_number = int(cur.text) if cur.text != None else TREE_FRUIT_NUMBER_DEFAULT
-                    dimension = int(child.find('Dimension').text)
-                    x = int(child.find('X').text)
-                    y = int(child.find('Y').text)
-                    cur = child.find('BaseColor')
-                    base_color_r = int(cur.find('Red').text)
-                    base_color_g = int(cur.find('Green').text)
-                    base_color_b = int(cur.find('Blue').text)
-                    base_color = pygame.Color(base_color_r, base_color_g, base_color_b)
-                    cur = child.find('FoodColor')
-                    food_color_r = int(cur.find('Red').text)
-                    food_color_g = int(cur.find('Green').text)
-                    food_color_b = int(cur.find('Blue').text)
-                    food_color = pygame.Color(food_color_r, food_color_g, food_color_b)
-                    cur = child.find('NoFoodColor')
-                    no_food_color_r = int(cur.find('Red').text)
-                    no_food_color_g = int(cur.find('Green').text)
-                    no_food_color_b = int(cur.find('Blue').text)
-                    no_food_color = pygame.Color(no_food_color_r, no_food_color_g, no_food_color_b)
-                    tree = Tree(base_color, food_color, no_food_color, x, y, max_food, food_respawn, fruit_number, dimension)
-                    self.objects.append(tree)
-                    
+                    self.add_tree(child)
+                if child.tag == 'Enemy':
+                    self.add_enemy(child)
+
 class MapTests(unittest.TestCase):
     """ unit tests for animals """
     def setUp(self):
@@ -91,4 +106,13 @@ class MapTests(unittest.TestCase):
         self.assertEqual(tree.surface_color, pygame.Color(7, 8, 9))
         self.assertEqual(tree.food_color, pygame.Color(10, 11, 12))
         self.assertEqual(tree.no_food_color, pygame.Color(13, 14, 15))
+    
+    def testComp(self):
+        self.assertEqual(self.map.PLAYABLE_DIMENSION_X, 1000)
+        self.assertEqual(self.map.PLAYABLE_DIMENSION_Y, 8000)
+        comp = self.map.objects[2]
+        self.assertTrue(isinstance(comp, Compsognathus))
+        self.assertEqual(comp.x, 16)
+        self.assertEqual(comp.y, 17)
+        
         

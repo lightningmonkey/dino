@@ -49,5 +49,10 @@
        		    <Blue>50</Blue>
        		</NoFoodColor>
         </Tree>
+        <Enemy>
+            <Name>Compsognathus</Name>
+            <X>500</X>
+            <Y>300</Y>
+        </Enemy>
     </Objects>
 </Map>

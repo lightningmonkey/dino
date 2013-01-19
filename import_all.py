@@ -14,6 +14,7 @@ RED = pygame.Color(255, 0, 0)
 BLUE = pygame.Color(0, 0, 255)
 BLACK = pygame.Color(0, 0, 0)
 WHITE = pygame.Color(255, 255, 255)
+ORANGE = pygame.Color(255, 165, 0)
 TRANSPARENT = pygame.Color(0, 0, 0, 0)
 
 FPS = 60

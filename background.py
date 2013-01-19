@@ -16,14 +16,14 @@ class Background(GenericSurface):
         logging.info('loading background with filename {0}'.format(file_name))
         self.map = Map(file_name)
         super(Background, self).__init__(self.map.BACKGROUND_DIMENSION_X, self.map.BACKGROUND_DIMENSION_Y, BLUE)
-        self.create_background()
+        self.all_objects = []
+        self.add_objects()
         self.draw_all()
         
     def draw_all(self):
         """ Draw everything from scratch """
-        self.all_objects = []
-        self.add_objects()
-        self.display_object()
+        self.create_background()
+        self.display_object(True)
         self.surface.blit(self.playable_surface, (OFFSET_X, OFFSET_Y))
         
     def create_background(self, box_dim = 100, background_color = WHITE, box_color = BLACK):
@@ -51,10 +51,10 @@ class Background(GenericSurface):
             self.all_objects.append(obj)
     
         
-    def display_object(self):
+    def display_object(self, skip=False):
         """ Loop through all objects and put them on the surface """
         for current_object in self.all_objects:
-            if(current_object.should_redraw_surface()):
+            if(skip or current_object.should_redraw_surface()):
                 self.playable_surface.blit(current_object.get_surface(), (current_object.x, current_object.y))
                 current_object.set_change(False)
     

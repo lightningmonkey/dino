@@ -4,14 +4,15 @@ from animals import GenericAnimal
 PLAYER_MAX_HEALTH = 300
 PLAYER_LEVEL = 0
 PLAYER_LEVEL_LIST = [300, 5000, 10000]
+PLAYER_ATTACK_MIN = 5
+PLAYER_ATTACK_MAX = 8
 
 class Player(GenericAnimal):
     """ The hero! Contains all the needed information about the player """
-    def __init__(self, width, height, player_background, player_color ):
-        super(Player, self).__init__(PLAYER_MAX_HEALTH, PLAYER_LEVEL, PLAYER_LEVEL_LIST, width, height, player_background)
-        self.player_color = player_color;
-        assert( width == height ) #assume the player is a square for now
-        self.dim = width
+    def __init__(self):
+        super(Player, self).__init__(PLAYER_MAX_HEALTH, PLAYER_LEVEL, PLAYER_LEVEL_LIST, PLAYER_ATTACK_MIN, PLAYER_ATTACK_MAX, PLAYER_DIMENSION_X, PLAYER_DIMENSION_Y, TRANSPARENT)
+        self.player_color = RED;
+        self.dim = PLAYER_DIMENSION_X
         self.create_player()
         logging.info('Created player||{0}'.format(self.__repr__()))
         
@@ -30,3 +31,6 @@ class Player(GenericAnimal):
         pygame.draw.line(self.surface, self.player_color, (self.dim/2,self.dim*(5.0/6.0)), (0,self.dim), 4)
         pygame.draw.line(self.surface, self.player_color, (self.dim/2,self.dim*(5.0/6.0)), (self.dim,self.dim), 4)
         pygame.draw.line(self.surface, self.player_color, (0,self.dim/2), (self.dim,self.dim/2), 4)
+    
+    def level_up(self):
+        print('Player leveled up!')
