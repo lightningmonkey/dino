@@ -2,20 +2,21 @@ from import_all import *
 
 class GenericAnimal(GenericSurface):
     """ Contains the basic mechanisms for animals, namely health and mass """
-    def __init__(self, max_health, current_size, width, height, base_color, x=0, y=0):
+    def __init__(self, max_health, current_size, level_list, width, height, base_color, x=0, y=0):
         super(GenericAnimal, self).__init__(width, height, base_color, x, y)
         self.max_health = max_health
         self.current_health = max_health
         self.current_mass = 0
-        self.size_level = current_size
+        self.level = current_size
+        self.level_list = level_list
         
     def __repr__(self):
         s = super(GenericAnimal, self).__repr__()
-        return 'GenericAnimal(max_health=%r, size_level=%r)||%s' % (self.max_health, self.size_level, s)
+        return 'GenericAnimal(max_health=%r, level=%r, level_list=%r)||%s' % (self.max_health, self.level, self.level_list, s)
         
     def __str__(self):
         s = super(GenericAnimal, self).__str__()
-        return 'GenericAnimal-max_health:{0} size_levle:{1}||{2}'.format(self.max_health, self.size_level, s)
+        return 'GenericAnimal-max_health:{0} level:{1} level_list"{2}||{3}'.format(self.max_health, self.level, self.level_list, s)
     
     def eat_food(self, food_qty):
         """ Food will first regen health, and then if any is left over add it to mass """
@@ -29,6 +30,10 @@ class GenericAnimal(GenericSurface):
                     self.current_health = self.max_health
                     food_qty -= dif
             self.current_mass += food_qty
+            if(self.level < len(self.level_list) and self.level_list[self.level] <= self.current_mass):
+                self.level += 1
+                print("LEVEL!")
+                logging.info('Level up! New level {0}'.format(self.level))
             print("health {0} mass {1}".format(self.current_health, self.current_mass))
             
     def get_health(self):

@@ -25,10 +25,10 @@ class GenericText(GenericTimedSurface):
     def __repr__(self):
         s = super(GenericText, self).__repr__()
         parent = repr(self.parent)
-        return 'GenericText(font=%s,parent=%s)||%s' % (self.font, parent, s)
+        return 'GenericText(font=%r,parent=%r)||%s' % (self.font, parent, s)
         
     def __str__(self):
-        s = super(GenericText, self).__repr__()
+        s = super(GenericText, self).__str__()
         return 'GenericText font:{0} parent.x{1} parent.y{2}||{3}'.format(self.font, self.parent.x, self.parent.y, s)
     
 class Eating(GenericText):
