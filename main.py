@@ -45,6 +45,7 @@ class MainLoop(object):
                         print("NOM  NOM")
                         self.player.eat_food(food_qty)
                         text = Eating(current_object)
+                        logging.info("Added text: {0}".format(str(text)))
                         self.background.add_object(text)
                         self.change = True
                 return False

@@ -22,6 +22,15 @@ class GenericText(GenericTimedSurface):
         """ Return the parent """
         return self.parent
     
+    def __repr__(self):
+        s = super(GenericText, self).__repr__()
+        parent = repr(self.parent)
+        return 'GenericText(font=%s,parent=%s)||%s' % (self.font, parent, s)
+        
+    def __str__(self):
+        s = super(GenericText, self).__repr__()
+        return 'GenericText font:{0} parent.x{1} parent.y{2}||{3}'.format(self.font, self.parent.x, self.parent.y, s)
+    
 class Eating(GenericText):
     """ When you eat a tree """
     def __init__(self, parent):
@@ -32,3 +41,11 @@ class Eating(GenericText):
         self.x = center_x - self.surface_width/2
         self.y = center_y - self.surface_height/2
         self.start_timer()
+    
+    def __repr__(self):
+        s = super(Eating, self).__repr__()
+        return 'Eating phrase %s||%s' % (EATING, s)
+        
+    def __str__(self):
+        s = super(Eating, self).__str__()
+        return 'Eating phrase:{0}||{1}'.format(EATING, s)
