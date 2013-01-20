@@ -4,11 +4,9 @@ from animals import GenericAnimal
 class Compsognathus(GenericAnimal):
     """ Small meat eating dino """
     def __init__(self, x, y):
-        super(Compsognathus, self).__init__(50, 0, [0], 1, 5, 30, 30, TRANSPARENT)
+        super(Compsognathus, self).__init__(50, 0, [0], 1, 5, 30, 30, TRANSPARENT, x, y, 3000)
         self.enemy_color = ORANGE;
         self.dim = self.surface_width
-        self.x = x
-        self.y = y
         self.create_enemy()
         logging.info('Created player||{0}'.format(self.__repr__()))
         

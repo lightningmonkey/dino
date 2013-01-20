@@ -72,6 +72,12 @@
        		    <Blue>50</Blue>
        		</NoFoodColor>
         </Tree>
+        <Rock>
+            <X>50</X>
+            <Y>200</Y>
+            <Width>50</Width>
+            <Height>50</Height>
+        </Rock>
         <Enemy>
             <Name>Compsognathus</Name>
             <X>600</X>

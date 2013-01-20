@@ -54,5 +54,11 @@
             <X>16</X>
             <Y>17</Y>
         </Enemy>
+        <Rock>
+            <X>18</X>
+            <Y>19</Y>
+            <Width>20</Width>
+            <Height>21</Height>
+        </Rock>
     </Objects>
 </Map>

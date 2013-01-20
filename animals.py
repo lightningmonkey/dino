@@ -1,9 +1,9 @@
 from import_all import *
 
-class GenericAnimal(GenericSurface):
+class GenericAnimal(GenericTimedSurface):
     """ Contains the basic mechanisms for animals, namely health and mass """
-    def __init__(self, max_health, current_size, level_list, attack_min, attack_max, width, height, base_color, x=0, y=0):
-        super(GenericAnimal, self).__init__(width, height, base_color, x, y)
+    def __init__(self, max_health, current_size, level_list, attack_min, attack_max, width, height, base_color, x=0, y=0, timer=0):
+        super(GenericAnimal, self).__init__(timer, width, height, base_color, x, y)
         self.max_health = max_health
         self.current_health = max_health
         self.current_mass = 0

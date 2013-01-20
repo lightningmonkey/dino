@@ -143,5 +143,5 @@ def run_tests():
     
 if __name__=='__main__':
     #run_tests()
-    main = MainLoop('map_definitions/First.xml')
+    main = MainLoop('map_definitions/Second.xml')
     

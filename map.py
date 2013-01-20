@@ -51,6 +51,14 @@ class Map(object):
             assert(False)
         comp = Compsognathus(x,y)
         self.objects.append(comp)
+    
+    def add_rock(self, child):
+        x = int(child.find('X').text)
+        y = int(child.find('Y').text)
+        width = int(child.find('Width').text)
+        height = int(child.find('Height').text)
+        rock = Rock(x,y, width, height)
+        self.objects.append(rock)
         
     def parse(self):
         cur = self.root.find('Width')
@@ -66,6 +74,8 @@ class Map(object):
                     self.add_tree(child)
                 if child.tag == 'Enemy':
                     self.add_enemy(child)
+                if child.tag == 'Rock':
+                    self.add_rock(child)
 
 class MapTests(unittest.TestCase):
     """ unit tests for animals """
@@ -114,5 +124,13 @@ class MapTests(unittest.TestCase):
         self.assertTrue(isinstance(comp, Compsognathus))
         self.assertEqual(comp.x, 16)
         self.assertEqual(comp.y, 17)
-        
-        
+    
+    def testRock(self):
+        self.assertEqual(self.map.PLAYABLE_DIMENSION_X, 1000)
+        self.assertEqual(self.map.PLAYABLE_DIMENSION_Y, 8000)
+        rock = self.map.objects[3]
+        self.assertTrue(isinstance(rock, Rock))
+        self.assertEqual(rock.x, 18)
+        self.assertEqual(rock.y, 19)
+        self.assertEqual(rock.surface_width, 20)
+        self.assertEqual(rock.surface_height, 21)

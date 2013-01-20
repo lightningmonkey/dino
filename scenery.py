@@ -77,6 +77,19 @@ class Tree(GenericScenery):
             pygame.draw.rect(self.surface, color, (point[0], point[1], self.fruit_size, self.fruit_size))
         self.set_change(False)
             
+class Rock(GenericScenery):
+    """ It's a rock, what more do you want? """
+    def __init__(self, x, y, width, heigth):
+        super(Rock, self).__init__(0, 0, width, heigth, GREY, x, y)
+
+    def __repr__(self):
+        s = super(Rock, self).__repr__()
+        return 'Rock||%s' % (s)
+        
+    def __str__(self):
+        s = super(Rock, self).__str__()
+        return 'Rock||{0}'.format(s)
+
 class SceneryTests(unittest.TestCase):
     """ unit tests for animals """
     def setUp(self):
